@@ -15,11 +15,17 @@
         </div>
         <div class="section">
 <!--            新书上架-->
-            <book-list tit="新书上架" :latestUpdated="latestUpdate"/>
+            <book-list
+                    tit="新书上架"
+                    @onBookSelect="preview"
+                    :latestUpdated="latestUpdate"/>
         </div>
         <div class="section">
 <!--            编辑推荐-->
-            <book-list tit="编辑推荐" :latestUpdated="recommend"/>
+            <book-list
+                    tit="编辑推荐"
+                    @onBookSelect="preview($event)"
+                    :latestUpdated="recommend"/>
         </div>
         <div style="height: 60px;">
 <!--            占位-->
@@ -32,92 +38,28 @@
         name: "Home",
         data(){
             return{
-                ac:'今日上架的图书全部8折',
-                slides:[
-                    {alt:'red',src:'http://placehold.it/750x300/red'},
-                    {alt:'yellow',src:'http://placehold.it/750x300/yellow'},
-                    {alt:'green',src:'http://placehold.it/750x300/green'},
-                ],
-                latestUpdate:[
-                    {
-                        id:1,
-                        title:"从小白到数据分析达人",
-                        authors:["Edward Zaccaro","Daniel Zaccaro"],
-                        img_url:"http://placehold.it/420x420",
-                    },
-                    {
-                        id:2,
-                        title:"从小白到数据分析达人",
-                        authors:["Edward Zaccaro","Daniel Zaccaro"],
-                        img_url:"http://placehold.it/420x420",
-                    },
-                    {
-                        id:3,
-                        title:"从小白到数据分析达人",
-                        authors:["Edward Zaccaro","Daniel Zaccaro"],
-                        img_url:"http://placehold.it/420x420",
-                    },
-                    {
-                        id:4,
-                        title:"从小白到数据分析达人",
-                        authors:["Edward Zaccaro","Daniel Zaccaro"],
-                        img_url:"http://placehold.it/420x420",
-                    },
-                    {
-                        id:5,
-                        title:"从小白到数据分析达人",
-                        authors:["Edward Zaccaro","Daniel Zaccaro"],
-                        img_url:"http://placehold.it/420x420",
-                    },
-                    {
-                        id:6,
-                        title:"从小白到数据分析达人",
-                        authors:["Edward Zaccaro","Daniel Zaccaro"],
-                        img_url:"http://placehold.it/420x420",
-                    },
-                ],
-                recommend:[
-                    {
-                        id:1,
-                        title:"从小白到AI人工智能达人",
-                        authors:["Edward Zaccaro","Daniel Zaccaro"],
-                        img_url:"http://placehold.it/420x420",
-                    },
-                    {
-                        id:2,
-                        title:"从小白到AI人工智能达人",
-                        authors:["Edward Zaccaro","Daniel Zaccaro"],
-                        img_url:"http://placehold.it/420x420",
-                    },
-                    {
-                        id:3,
-                        title:"从小白到AI人工智能达人",
-                        authors:["Edward Zaccaro","Daniel Zaccaro"],
-                        img_url:"http://placehold.it/420x420",
-                    },
-                    {
-                        id:4,
-                        title:"从小白到AI人工智能达人",
-                        authors:["Edward Zaccaro","Daniel Zaccaro"],
-                        img_url:"http://placehold.it/420x420",
-                    },
-                    {
-                        id:5,
-                        title:"从小白到AI人工智能达人",
-                        authors:["Edward Zaccaro","Daniel Zaccaro"],
-                        img_url:"http://placehold.it/420x420",
-                    },
-                    {
-                        id:6,
-                        title:"从小白到AI人工智能达人",
-                        authors:["Edward Zaccaro","Daniel Zaccaro"],
-                        img_url:"http://placehold.it/420x420",
-                    },
-                ],
+                ac:'',
+                slides:[],
+                latestUpdate:[],
+                recommend:[],
             }
         },
         components:{
             BookList:()=>import('@/components/Booklist')
+        },
+        methods:{
+            preview(book){
+                alert(JSON.stringify(book))
+            }
+        },
+        created(){
+            let self = this;
+            this.$axios.get('/home').then(res=>{
+                self.ac = res.data.ac;
+                self.slides = res.data.slides;
+                self.latestUpdate = res.data.latestUpdate;
+                self.recommend = res.data.recommend;
+            })
         }
     }
 </script>

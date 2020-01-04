@@ -1,12 +1,18 @@
 <template>
     <div>
         <mt-header class="new-book">
-            <mt-button slot="left">{{tit}}</mt-button>
-            <router-link to="/" slot="right">
+            <mt-button
+                    slot="left">{{tit}}</mt-button>
+            <router-link
+                    to="/"
+                    slot="right">
                 <mt-button>{{more}}</mt-button>
             </router-link>
         </mt-header>
-        <div class="book" v-for="item in latestUpdated" :key="item.id">
+        <div class="book"
+             @click="$emit('onBookSelect',item)"
+             v-for="item in latestUpdated"
+             :key="item.id">
             <div class="cover"><img :src="item.img_url" alt=""></div>
             <div class="title">{{item.title}}</div>
             <div class="author">{{item.authors | join}}</div>

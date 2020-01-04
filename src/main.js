@@ -6,6 +6,11 @@ import router from "@/router";
 import Mint from 'mint-ui'
 import 'mint-ui/lib/style.css'
 Vue.use(Mint);
+//引入axios
+import Axios from "axios";
+Vue.prototype.$axios = Axios;
+//引入mockjs
+import './mock'
 
 Vue.config.productionTip = false;
 
