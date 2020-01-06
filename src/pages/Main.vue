@@ -1,24 +1,12 @@
 <template>
     <div>
         <router-view/>
-        <mt-tabbar v-model="selected">
-            <mt-tab-item id="home">
-                <img slot="icon" src="http://placehold.it/100x100">
-                首页
-            </mt-tab-item>
-            <mt-tab-item id="category">
-                <img slot="icon" src="http://placehold.it/100x100">
-                分类
-            </mt-tab-item>
-            <mt-tab-item id="cart">
-                <img slot="icon" src="http://placehold.it/100x100">
-                购物车
-            </mt-tab-item>
-            <mt-tab-item id="me">
-                <img slot="icon" src="http://placehold.it/100x100">
-                我的
-            </mt-tab-item>
-        </mt-tabbar>
+        <van-tabbar route v-model="active">
+            <van-tabbar-item name="home" icon="home-o" :to="{name:'home'}">首页</van-tabbar-item>
+            <van-tabbar-item name="category" icon="cluster-o" :to="{name:'category'}">分类</van-tabbar-item>
+            <van-tabbar-item name="cart" icon="cart-o" :to="{name:'cart'}">购物车</van-tabbar-item>
+            <van-tabbar-item name="me" icon="user-o" :to="{name:'me'}">我</van-tabbar-item>
+        </van-tabbar>
     </div>
 </template>
 
@@ -27,12 +15,11 @@
         name: "Main",
         data(){
             return{
-                selected:'home',
+                active:'home',
             }
         },
     }
 </script>
 
 <style scoped>
-    .mint-tabbar{position: fixed;}
 </style>

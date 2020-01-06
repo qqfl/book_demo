@@ -1,21 +1,18 @@
 <template>
     <div>
-        <mt-header class="new-book">
-            <mt-button
-                    slot="left">{{tit}}</mt-button>
-            <router-link
-                    to="/"
-                    slot="right">
-                <mt-button>{{more}}</mt-button>
-            </router-link>
-        </mt-header>
-        <div class="book"
-             @click="$emit('onBookSelect',item)"
-             v-for="item in latestUpdated"
-             :key="item.id">
-            <div class="cover"><img :src="item.img_url" alt=""></div>
-            <div class="title">{{item.title}}</div>
-            <div class="author">{{item.authors | join}}</div>
+        <van-nav-bar
+                :title=tit
+                :right-text=more
+        />
+        <div class="books">
+            <div class="book"
+                 @click="$emit('onBookSelect',item)"
+                 v-for="item in latestUpdated"
+                 :key="item.id">
+                <div class="cover"><img :src="item.img_url" alt=""></div>
+                <div class="title van-ellipsis">{{item.title}}</div>
+                <div class="author van-ellipsis">{{item.authors | join}}</div>
+            </div>
         </div>
     </div>
 </template>
@@ -46,9 +43,10 @@
 </script>
 
 <style scoped>
-    .new-book{margin: .2rem .2rem 0;background: none;color: #000;}
-    .book{width: 2.1rem;display: inline-block;margin-left: .3rem;margin-top: .3rem;}
+    .van-nav-bar__title{position: absolute;left: 16px;}
+    .books{display: flex;flex-wrap: wrap;align-items: center;padding: 0 2%;width: 96%;height: 100%;}
+    .book{display: inline-block;width: 30%;margin: 10px auto;}
     .book img{width: 100%;}
-    .book .title{font-weight: bold;padding: .1rem 0;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
-    .book .author{font-size: .24rem;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+    .book .title{padding: 5px 0;font-size: 14px}
+    .book .author{font-size: 12px;color: rgba(69, 90, 100, 0.6)}
 </style>

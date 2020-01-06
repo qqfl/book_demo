@@ -11,5 +11,4 @@
 </script>
 
 <style>
-    body{margin: 0;font-size: .28rem;}
 </style>
