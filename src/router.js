@@ -10,5 +10,6 @@ export default new VueRouter({
                 {name:'cart',path:'cart',component:()=>import('@/pages/Cart')},
                 {name:'me',path:'me',component:()=>import('@/pages/Me')},
             ]},
+        {name:'full',path: '/full',component:()=>import('@/pages/Full')}
     ],
 })

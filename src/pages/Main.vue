@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-view/>
+        <router-view class="page"/>
         <van-tabbar route v-model="active">
             <van-tabbar-item name="home" icon="home-o" :to="{name:'home'}">首页</van-tabbar-item>
             <van-tabbar-item name="category" icon="cluster-o" :to="{name:'category'}">分类</van-tabbar-item>
@@ -22,4 +22,5 @@
 </script>
 
 <style scoped>
+    .page{padding-bottom: 60px;}
 </style>

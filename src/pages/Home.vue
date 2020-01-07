@@ -1,39 +1,20 @@
 <template>
     <div>
-        <div class="section">
-            <!--            热门推荐-->
-            <van-swipe class="swipe" :autoplay="3000" indicator-color="white">
-                <van-swipe-item v-for="(item,index) in slides" :key="index">
-                    <img :src="item.src" :alt="item.alt">
-                </van-swipe-item>
-            </van-swipe>
-            <!--            快讯-->
-            <div class="ac">
-                <van-notice-bar
-                        :text="ac"
-                        left-icon="volume-o"
-                />
-            </div>
-        </div>
-        <div class="section">
-            <!--            新书上架-->
-            <book-list
-                    tit="新书上架"
-                    @onBookSelect="preview"
-                    :latestUpdated="latestUpdate"/>
-        </div>
-        <div class="section">
-            <!--            编辑推荐-->
-            <book-list
-                    tit="编辑推荐"
-                    @onBookSelect="preview($event)"
-                    :latestUpdated="recommend"/>
-        </div>
-        <div style="height: 60px;">
-            <!--            占位-->
-        </div>
-
-        <model-dialog ref="dialog">
+        <!--            热门推荐-->
+        <home-slider :slides="slides"/>
+        <!--            快讯-->
+        <home-announcement :ac="ac"/>
+        <!--            新书上架-->
+        <home-book-list
+                tit="新书上架"
+                @onBookSelect="preview"
+                :latestUpdated="latestUpdate"/>
+        <!--            编辑推荐-->
+        <home-book-list
+                tit="编辑推荐"
+                @onBookSelect="preview($event)"
+                :latestUpdated="recommend"/>
+        <home-book-detail ref="dialog">
             <div slot="header">
                 <van-button class="close" type="danger" @click="$refs.dialog.close()">X</van-button>
             </div>
@@ -44,25 +25,33 @@
                     <p>作者：{{selected.authors | jo}}</p>
                 </div>
             </div>
-        </model-dialog>
+        </home-book-detail>
     </div>
 </template>
 
 <script>
+    import HomeAnnouncement from "@/components/HomeAnnouncement";
+    import HomeBookDetail from "@/components/HomeBookDetail";
+    import HomeBookList from "@/components/HomeBookList";
+    import HomeSlider from "@/components/HomeSlider";
     export default {
         name: "Home",
         data() {
             return {
                 ac: '',
-                slides: [],
+                slides: [
+                    {src:require('../assets/imgs/750x300.png')}
+                    ],//页面切换时轮播图的图片加载过程中内容下移体验不好，给个默认占位图
                 latestUpdate: [],
                 recommend: [],
                 selected: '',
             }
         },
         components: {
-            BookList: () => import('@/components/Booklist'),
-            ModelDialog: () => import('@/components/Dialog'),
+            HomeAnnouncement,
+            HomeBookList,
+            HomeBookDetail,
+            HomeSlider,
         },
         methods: {
             preview(book) {
@@ -100,10 +89,6 @@
 </script>
 
 <style scoped>
-    .swipe img {
-        width: 100%;
-    }
-
     .dialog img {
         width: 100%;
     }

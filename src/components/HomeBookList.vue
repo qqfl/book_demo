@@ -9,7 +9,11 @@
                  @click="$emit('onBookSelect',item)"
                  v-for="item in latestUpdated"
                  :key="item.id">
-                <div class="cover"><img :src="item.img_url" alt=""></div>
+<!--                默认图片占位：解决图片加载过程中内容抖动，和加载失败后内容错行-->
+                <div class="cover" style="position: relative">
+                    <img src="../assets/imgs/400x400.png" alt="">
+                    <img style="position: absolute;left: 0;" :src="item.img_url" alt="">
+                </div>
                 <div class="title van-ellipsis">{{item.title}}</div>
                 <div class="author van-ellipsis">{{item.authors | join}}</div>
             </div>
@@ -38,7 +42,7 @@
             join(v){
                 return v.join(',');
             }
-        }
+        },
     }
 </script>
 

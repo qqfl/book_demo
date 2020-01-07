@@ -40,13 +40,8 @@
         left: 24px;
         right: 24px;
         bottom: 24px;
-        display: none;
         background: #fff;
         box-shadow: 0 0 10px rgba(0, 0, 0, .5);
         z-index: 500;
-    }
-
-    .dialog.open {
-        display: block
     }
 </style>
