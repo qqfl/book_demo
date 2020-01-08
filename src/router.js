@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 export default new VueRouter({
-    mode:'history',
+    // mode:'history',
     routes:[
         {path:'/',component:()=>import('@/pages/Main.vue'),children:[
                 {name:'home',path:'/',component:()=>import('@/pages/Home')},
@@ -10,6 +10,6 @@ export default new VueRouter({
                 {name:'cart',path:'cart',component:()=>import('@/pages/Cart')},
                 {name:'me',path:'me',component:()=>import('@/pages/Me')},
             ]},
-        {name:'full',path: '/full',component:()=>import('@/pages/Full')}
+        {name:'HomeMoreBook',path: '/HomeMoreBook/:type/:tit',component:()=>import('@/pages/HomeMoreBook')}
     ],
 })

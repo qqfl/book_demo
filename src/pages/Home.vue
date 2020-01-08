@@ -6,13 +6,15 @@
         <home-announcement :ac="ac"/>
         <!--            新书上架-->
         <home-book-list
-                tit="新书上架"
+                :tit="titNew"
                 @onBookSelect="preview"
+                @toMore="$router.push({name:'HomeMoreBook',params:{type:'new',tit:titNew}})"
                 :latestUpdated="latestUpdate"/>
         <!--            编辑推荐-->
         <home-book-list
-                tit="编辑推荐"
-                @onBookSelect="preview($event)"
+                :tit="titEdit"
+                @onBookSelect="preview"
+                @toMore="$router.push({name:'HomeMoreBook',params:{type:'edit',tit:titEdit}})"
                 :latestUpdated="recommend"/>
         <home-book-detail ref="dialog">
             <div slot="header">
@@ -34,14 +36,17 @@
     import HomeBookDetail from "@/components/HomeBookDetail";
     import HomeBookList from "@/components/HomeBookList";
     import HomeSlider from "@/components/HomeSlider";
+
     export default {
         name: "Home",
         data() {
             return {
+                titNew:'新书上架',
+                titEdit:'编辑推荐',
                 ac: '',
                 slides: [
-                    {src:require('../assets/imgs/750x300.png')}
-                    ],//页面切换时轮播图的图片加载过程中内容下移体验不好，给个默认占位图
+                    {src: require('../assets/imgs/750x300.png')}
+                ],//页面切换时轮播图的图片加载过程中内容下移体验不好，给个默认占位图
                 latestUpdate: [],
                 recommend: [],
                 selected: '',

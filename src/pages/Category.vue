@@ -1,22 +1,19 @@
 <template>
     <div>
-        <cate-sidebar :sides="sides"/>
-        <cate-book-list/>
+        <cate-content :sides="bookNames"/>
     </div>
 </template>
 
 <script>
-    import CateSidebar from "@/components/CateSidebar";
-    import CateBookList from "@/components/CateBookList";
+    import CateContent from "@/components/CateContent";
     export default {
         name: "Category",
         components:{
-            CateSidebar,
-            CateBookList,
+            CateContent,
         },
         data() {
             return {
-                sides:[],
+                bookNames:[],
             };
         },
         created(){

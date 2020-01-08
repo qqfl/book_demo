@@ -6,19 +6,17 @@ let slides=[],latestUpdate=[],recommend=[];
 for (let i = 0; i < 3; i++) {
     slides.push({alt:'@color',src:Random.image('750x300',Random.color())})
 }
-for (let i = 0; i < 6; i++) {
+for (let i = 0; i < 15; i++) {
     latestUpdate.push({
-        id:i,
         title:"@ctitle(3, 9)",
-        'authors|1-3':["Edward"],
+        'authors|1-3':["latest"],
         img_url:Random.image('400x400',Random.color()),
     })
 }
-for (let i = 0; i < 6; i++) {
+for (let i = 0; i < 15; i++) {
     recommend.push({
-        id:i,
         title:"@ctitle(3, 19)",
-        'authors|1-3':["Edward"],
+        'authors|1-3':["recommend"],
         img_url:Random.image('400x400',Random.color()),
     })
 }
@@ -29,14 +27,16 @@ Mock.mock(HOST+'/home',{
     recommend:recommend,
 });
 
-let sides=[],bookNames=[];
-for (let i = 0; i < 15; i++) {
-    sides.push('@ctitle(2, 4)')
+let bookNames=[],bookContent=[];
+for (let i = 0; i < 8; i++) {
+    bookContent.push('@ctitle(5, 30)');
 }
 for (let i = 0; i < 15; i++) {
-    bookNames.push('@ctitle(5, 30)')
+    bookNames.push({
+        title:'@ctitle(2, 4)',
+        content: bookContent
+    })
 }
 Mock.mock(HOST+'/cate',{
-    sides:sides,
     bookNames,
 });
