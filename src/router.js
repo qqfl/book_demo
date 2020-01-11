@@ -10,6 +10,6 @@ export default new VueRouter({
                 {name:'cart',path:'cart',component:()=>import('@/pages/Cart')},
                 {name:'me',path:'me',component:()=>import('@/pages/Me')},
             ]},
-        {name:'HomeMoreBook',path: '/HomeMoreBook/:type/:tit',component:()=>import('@/pages/HomeMoreBook')}
+        {name:'HomeMoreBook',path: '/HomeMoreBook/:type/:tit',component:()=>import('@/components/HomeMoreBook')}
     ],
 })

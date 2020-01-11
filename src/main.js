@@ -1,7 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
+
 //引入路由
 import router from "@/router";
+//引入mockjs
+import '@/mock'
+//引入validate
+import '@/validate'
+
 //引入vant
 import Vant from 'vant'
 import 'vant/lib/index.css'
@@ -10,8 +16,8 @@ Vue.use(Vant);
 import Axios from "axios";
 Axios.defaults.baseURL = 'https://www.demo.com/api';
 Vue.prototype.$axios = Axios;
-//引入mockjs
-import './mock'
+
+
 
 Vue.config.productionTip = false;
 

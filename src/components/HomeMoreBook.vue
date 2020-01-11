@@ -105,19 +105,17 @@
                 let self = this;
                 this.$axios.get('/home')
                     .then(res => {
-                        setTimeout(function () {
-                            let data = [];
-                            if (self.type === 'new'){
-                                data = res.data.latestUpdate
-                            }
-                            if (self.type === 'edit'){
-                                data = res.data.recommend
-                            }
-                            self.bookData = data;
-                            self.$toast('刷新成功');
-                            self.isLoading = false;
-                            self.finished = false;
-                        },1000)
+                        let data = [];
+                        if (self.type === 'new'){
+                            data = res.data.latestUpdate
+                        }
+                        if (self.type === 'edit'){
+                            data = res.data.recommend
+                        }
+                        self.bookData = data;
+                        self.$toast('刷新成功');
+                        self.isLoading = false;
+                        self.finished = false;
                     });
             },
             onLoad() {
@@ -125,24 +123,21 @@
                 let self = this;
                 this.$axios.get('/home')
                     .then(res => {
-                        setTimeout(function () {
-                            let data = [];
-                            if (self.type === 'new'){
-                                data = res.data.latestUpdate
-                            }
-                            if (self.type === 'edit'){
-                                data = res.data.recommend
-                            }
-                            self.bookData=[...self.bookData,...data];
-                            self.loading = false;
-                            // 数据全部加载完成
-                            if (self.bookData.length >= 100) {
-                                self.finished = true;
-                            }
-                        },1000)
+                        let data = [];
+                        if (self.type === 'new'){
+                            data = res.data.latestUpdate
+                        }
+                        if (self.type === 'edit'){
+                            data = res.data.recommend
+                        }
+                        self.bookData=[...self.bookData,...data];
+                        self.loading = false;
+                        // 数据全部加载完成
+                        if (self.bookData.length >= 100) {
+                            self.finished = true;
+                        }
                     });
             },
-            toDetail(){},
         },
         created(){
             let self = this;
@@ -157,9 +152,9 @@
                     }
                     self.bookData = data;
                 })
-                .catch(err => {
-                    window.console.log(err);
-                })
+                // .catch(err => {
+                //     window.console.log(err);
+                // })
         }
     }
 </script>

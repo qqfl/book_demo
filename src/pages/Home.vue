@@ -6,16 +6,26 @@
         <home-announcement :ac="ac"/>
         <!--            新书上架-->
         <home-book-list
+                ref="hbl1"
                 :tit="titNew"
                 @onBookSelect="preview"
                 @toMore="$router.push({name:'HomeMoreBook',params:{type:'new',tit:titNew}})"
-                :latestUpdated="latestUpdate"/>
+                :latestUpdated="latestUpdate">
+            <div slot="loading">
+                <van-loading style="margin: 10% 0;text-align: center;" />
+            </div>
+        </home-book-list>
         <!--            编辑推荐-->
         <home-book-list
+                ref="hbl2"
                 :tit="titEdit"
                 @onBookSelect="preview"
                 @toMore="$router.push({name:'HomeMoreBook',params:{type:'edit',tit:titEdit}})"
-                :latestUpdated="recommend"/>
+                :latestUpdated="recommend">
+            <div slot="loading">
+                <van-loading style="margin: 10% 0;text-align: center;" />
+            </div>
+        </home-book-list>
         <home-book-detail ref="dialog">
             <div slot="header">
                 <van-button class="close" type="danger" @click="$refs.dialog.close()">X</van-button>
@@ -68,18 +78,15 @@
             let self = this;
             this.$axios.get('/home')
                 .then(res => {
-                    // self.ac = res.data.ac;
-                    // self.slides = res.data.slides;
-                    // self.latestUpdate = res.data.latestUpdate;
-                    // self.recommend = res.data.recommend;
-                    // for (let key of Object.keys(res.data)){
                     for (let key in res.data) {
                         self[key] = res.data[key];
                     }
+                    self.$refs.hbl1.hideLoading();
+                    self.$refs.hbl2.hideLoading();
                 })
-                .catch(err => {
-                    window.console.log(err);
-                })
+                // .catch(err => {
+                //     window.console.log(err);
+                // })
         },
         filters: {
             jo(v) {

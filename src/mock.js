@@ -1,6 +1,9 @@
 const Mock = require('mockjs'); // 获取mock对象
 const Random = Mock.Random; // 获取random对象，随机生成各种数据，具体请翻阅文档
 const HOST = 'https://www.demo.com/api';
+Mock.setup({
+    timeout: '1000-3000'
+});
 
 let slides=[],latestUpdate=[],recommend=[];
 for (let i = 0; i < 3; i++) {
@@ -29,7 +32,10 @@ Mock.mock(HOST+'/home',{
 
 let bookNames=[],bookContent=[];
 for (let i = 0; i < 8; i++) {
-    bookContent.push('@ctitle(5, 30)');
+    bookContent.push({
+        text:'@ctitle(5, 30)',
+        selected: false,
+    });
 }
 for (let i = 0; i < 15; i++) {
     bookNames.push({

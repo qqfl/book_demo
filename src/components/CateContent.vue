@@ -11,14 +11,19 @@
         </div>
         <van-search placeholder="请输入搜索关键词" v-model="value"/>
         <div class="bookList" :class="{'left0':hideSidebar}" @scroll="onSt" ref="bl">
+            <div v-show="loading"><slot name="loading"/></div>
             <van-list style="padding-bottom: 300px;">
                 <div v-for="(item,index) in sideFilter" :key="index">
                     <van-divider class="vd" :id="index">{{item.title}}</van-divider>
                     <van-cell
                             v-for="(it,ind) in item.content"
                             :key="ind"
-                            :title="it"
-                    />
+                            :title="it.text"
+                    >
+                        <van-checkbox
+                                @change="selectChanged(index,ind)"
+                                v-model="it.selected"/>
+                    </van-cell>
                 </div>
             </van-list>
         </div>
@@ -39,6 +44,8 @@
                 value: '',
                 st: [],
                 hideSidebar: false,
+                loading: true,
+                selection: [],
             }
         },
         methods: {
@@ -55,7 +62,24 @@
                         this.activeKey = i;
                     }
                 }
-
+            },
+            hideLoading(){
+                this.loading=false;
+            },
+            //获取所有标题到顶部距离值的数组
+            getDistance(){
+                let self = this;
+                //在数据变化后要执行的某个操作，而这个操作需要使用随数据改变而改变的DOM结构的时候，这个操作都应该放进Vue.nextTick()的回调函数中。
+                this.$nextTick(()=>{
+                    let vd = document.getElementsByClassName('vd');
+                    for (let i = 0; i < vd.length; i++) {
+                        self.st.push(vd[i].offsetTop);
+                    }
+                })
+            },
+            selectChanged(first,second){
+                this.selection.push([first,second]);
+                window.console.log(JSON.stringify(this.selection))
             }
         },
         computed: {
@@ -65,7 +89,7 @@
                 let sd = this.sides;
                 if (sd.length){
                     for (let i = 0; i < sd.length; i++) {
-                        let newCont = sd[i].content.filter(x => x.indexOf(this.value) > -1);
+                        let newCont = sd[i].content.filter(x => x.text.indexOf(this.value) > -1);
                         if (newCont.length > 0){
                             arr.push({
                                 title: sd[i].title,
@@ -100,13 +124,14 @@
         },
         mounted() {
             //获取所有标题到顶部距离值的数组
-            let self = this;
-            setTimeout(function () {
-                let vd = document.getElementsByClassName('vd');
-                for (let i = 0; i < vd.length; i++) {
-                    self.st.push(vd[i].offsetTop);
-                }
-            }, 100);
+            // let self = this;
+            // setTimeout(function () {
+            //     let vd = document.getElementsByClassName('vd');
+            //     for (let i = 0; i < vd.length; i++) {
+            //         self.st.push(vd[i].offsetTop);
+            //     }
+            //     window.console.log(self.st)
+            // }, 100);
         },
     }
 </script>
@@ -137,4 +162,8 @@
     }
 
     .left0{left: 0!important;}
+
+    .van-checkbox{float: right;}
+
+    .van-cell__title{flex: 5!important;}
 </style>

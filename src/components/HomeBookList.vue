@@ -5,6 +5,7 @@
                 :right-text=more
                 @click-right="$emit('toMore')"
         />
+        <div v-show="loading"><slot name="loading"/></div>
         <div class="books">
             <div class="book"
                  @click="$emit('onBookSelect',item)"
@@ -27,7 +28,13 @@
         name: "Booklist",
         data(){
             return{
-                more:'更多'
+                more:'更多',
+                loading: true,
+            }
+        },
+        methods:{
+            hideLoading(){
+                this.loading=false;
             }
         },
         props:{
