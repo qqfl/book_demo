@@ -1,57 +1,68 @@
 <template>
     <div>
-        <!--<validation-provider class="vp" rules="email|required" v-slot="{errors}" name="邮箱地址">
-            <label>
-                <input type="text" v-model="email" name="email" placeholder="请输入邮箱地址">
-                <span style="color: #ee0a24;">{{errors[0]}}</span>
-            </label>
-        </validation-provider>
-        <br>
-        <validation-provider class="vp" rules="mobile|required" v-slot="{errors}" name="手机号码">
-            <label>
-                <input type="text" v-model="phone" name="email" placeholder="请输入手机号码">
-                <span style="color: #ee0a24;">{{errors[0]}}</span>
-            </label>
-        </validation-provider>
-        <br>-->
-        <van-cell-group>
-            <validation-provider rules="email|required" v-slot="{errors}" name="邮箱地址">
-                <van-field
-                        required
-                        v-model="email"
-                        label="邮箱地址"
-                        placeholder="请输入邮箱地址"
-                        :error-message="errors[0]"
-                />
-            </validation-provider>
-            <validation-provider rules="mobile|required" v-slot="{errors}" name="手机号码">
-                <van-field
-                        required
-                        v-model="phone"
-                        label="手机号"
-                        placeholder="请输入手机号"
-                        :error-message="errors[0]"
-                />
-            </validation-provider>
-        </van-cell-group>
+        <van-icon class="star" name="star"/>
+        <ValidationObserver v-slot="{ handleSubmit }">
+            <form @submit.prevent="handleSubmit(onSubmit)">
+                <van-cell-group>
+                    <validation-provider rules="required|mobile" v-slot="{errors}" name="手机号码">
+                        <van-field
+                                required
+                                v-model="phone"
+                                label="手机号"
+                                placeholder="请输入手机号"
+                                :error-message="errors[0]"
+                        />
+                    </validation-provider>
+                    <validation-provider rules="required|min:6" v-slot="{errors}" name="密码">
+                        <van-field
+                                type="password"
+                                required
+                                v-model="pass"
+                                label="密码"
+                                placeholder="请输入密码"
+                                :error-message="errors[0]"
+                        />
+                    </validation-provider>
+                </van-cell-group>
+                <van-button class="van-button--primary" block type="submit">登录</van-button>
+                <van-button block plain  type="primary">忘记密码</van-button>
+            </form>
+        </ValidationObserver>
     </div>
 </template>
 
 <script>
-    import {ValidationProvider} from 'vee-validate';
+    import {ValidationObserver, ValidationProvider} from 'vee-validate'
+
     export default {
         name: "Me",
-        components:{
+        components: {
+            ValidationObserver,
             ValidationProvider,
         },
-        data:()=>({
-            email:'',
-            phone:'',
+        data: () => ({
+            pass: '',
+            phone: '',
         }),
+        methods: {
+            onSubmit() {
+                alert('Form has been submitted!');
+            }
+        },
     }
 </script>
 
 <style scoped>
-    .vp{padding-bottom: 30px;display: block;position: relative;}
-    .vp span{display: block;position: absolute;}
+    .star {
+        font-size: 80px;
+        margin: 80px;
+        display: block;
+        text-align: center;
+        color: orange;
+    }
+
+    .van-button--primary {
+        width: calc(100% - 20px);
+        margin: 10px auto;
+    }
 </style>

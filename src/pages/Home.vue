@@ -78,7 +78,8 @@
             let self = this;
             this.$axios.get('/home')
                 .then(res => {
-                    for (let key in res.data) {
+                    for (let key of Object.keys(res.data)) {
+                    // for (let key in res.data) {
                         self[key] = res.data[key];
                     }
                     self.$refs.hbl1.hideLoading();

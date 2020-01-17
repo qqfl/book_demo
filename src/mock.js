@@ -25,6 +25,7 @@ for (let i = 0; i < 15; i++) {
 }
 Mock.mock(HOST+'/home',{
     ac:'@ctitle(3, 50)',
+    aa:'@string("number", 5)',
     slides:slides,
     latestUpdate:latestUpdate,
     recommend:recommend,
