@@ -8,8 +8,8 @@ export default new Vuex.Store({
         aa:'',
     },
     getters:{
-        ac: state => state.ac,
-        aa: state => state.aa,
+        ac: state => state.ac+'--22',
+        aa: state => state.aa+'--33',
     },
     actions:{
         getStarted(context){
