@@ -23,8 +23,8 @@ export default new Vuex.Store({
             // for (let key of Object.keys(startedData)) {
             //     this.state[key] = startedData[key];
             // }
-            this.state.ac = startedData.ac;
-            this.state.aa = startedData.aa;
+            state.ac = startedData.ac;
+            state.aa = startedData.aa;
         }
     }
 })
